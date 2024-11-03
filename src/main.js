@@ -8,9 +8,7 @@ const loader = document.querySelector('.loader');
 const gallery = document.querySelector('.gallery');
 
 form.addEventListener('submit', async (event) => {
-  event.
-  even
-preventDefault();
+  event.preventDefault();
   const query = event.currentTarget.elements.searchQuery.value.trim();
 
   if (!query) {
@@ -18,27 +16,27 @@ preventDefault();
     return;
   }
 
-  loader.style.display = 'block';
+  console.log('Show loader');
+  loader.style.display = 'block'; // Показати loader під час завантаження
   gallery.innerHTML = ''; 
 
   try {
-    
-  
-const data = await fetchImages(query);
-    loader.style.display = 'none';
+    const data = await fetchImages(query);
+    console.log('Hide loader');
+    loader.style.display = 'none'; // Приховати loader після завантаження
 
     if (data.hits.length === 0) {
       iziToast.info({ message: 'Sorry, there are no images matching your search query. Please try again!' });
     } else {
       renderImages(data.hits);
     }
-  } 
-   
-catch (error) {
+  } catch (error) {
+    console.log('Hide loader on error');
     loader.style.display = 'none';
-    iziToast.error({ title: 'Error', message: error.message }); 
+    iziToast.error({ title: 'Error', message: error.message });
   }
 });
+
 
 
 
